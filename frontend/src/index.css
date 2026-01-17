@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gray-100;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 1s ease;
+  }
+
+  .animate-fadeInUp-delay-1 {
+    animation: fadeInUp 1s ease 0.2s both;
+  }
+
+  .animate-fadeInUp-delay-2 {
+    animation: fadeInUp 1s ease 0.4s both;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.3s ease;
+  }
+}
+
