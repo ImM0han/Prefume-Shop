@@ -1,45 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchReviewsByProductId, addReview } from '../utils/dataService';
 
 const ReviewSection = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    userName: '',
-    rating: 5,
-    comment: ''
-  });
+  const [formData, setFormData] = useState({ userName: '', rating: 5, comment: '' });
 
   useEffect(() => {
-    fetchReviews();
-  }, [productId]);
+    loadReviews();
+  }, [productId]); // eslint-disable-line
 
-  const fetchReviews = async () => {
+  const loadReviews = () => {
     try {
-      const response = await axios.get(`/api/reviews/product/${productId}`);
-      setReviews(response.data);
-      setLoading(false);
+      const data = fetchReviewsByProductId(productId);
+      setReviews(data);
     } catch (error) {
-      console.error('Error fetching reviews:', error);
+      console.error('Error loading reviews:', error);
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/reviews', {
-        productId,
-        ...formData
-      });
-      setFormData({
-        userName: '',
-        rating: 5,
-        comment: ''
-      });
+      addReview({ productId, ...formData });
+      setFormData({ userName: '', rating: 5, comment: '' });
       setShowForm(false);
-      fetchReviews();
+      loadReviews();
       alert('Review submitted successfully!');
     } catch (error) {
       console.error('Error submitting review:', error);
@@ -48,37 +37,30 @@ const ReviewSection = ({ productId }) => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, i) => (
+  const renderStars = (rating) =>
+    Array.from({ length: 5 }, (_, i) => (
       <span key={i} className={`text-2xl ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}>
         ★
       </span>
     ));
-  };
 
-  const averageRating = reviews.length > 0
-    ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
-    : 0;
+  const averageRating =
+    reviews.length > 0
+      ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+      : 0;
 
   return (
     <div className="max-w-7xl mx-auto p-8 bg-white rounded-2xl shadow-md">
       <div className="flex flex-col gap-8">
         <div className="flex justify-between items-center flex-wrap gap-4 pb-6 border-b-2 border-gray-200">
           <h2 className="text-3xl text-gray-800 m-0">Customer Reviews</h2>
-          <div className="flex items-center">
-            <div className="flex items-center gap-2">
-              <span className="text-3xl font-bold text-primary">{averageRating}</span>
-              <div className="flex gap-0.5">
-                {renderStars(Math.round(averageRating))}
-              </div>
-              <span className="text-gray-600 text-sm">({reviews.length} reviews)</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <span className="text-3xl font-bold text-primary">{averageRating}</span>
+            <div className="flex gap-0.5">{renderStars(Math.round(averageRating))}</div>
+            <span className="text-gray-600 text-sm">({reviews.length} reviews)</span>
           </div>
         </div>
 
@@ -94,14 +76,10 @@ const ReviewSection = ({ productId }) => {
             <div className="flex flex-col gap-2">
               <label htmlFor="userName" className="font-semibold text-gray-800">Your Name</label>
               <input
-                type="text"
-                id="userName"
-                name="userName"
-                value={formData.userName}
-                onChange={handleChange}
-                required
+                type="text" id="userName" name="userName"
+                value={formData.userName} onChange={handleChange} required
                 placeholder="Enter your name"
-                className="p-3 border-2 border-gray-200 rounded-lg text-base font-sans transition-colors duration-300 focus:outline-none focus:border-primary"
+                className="p-3 border-2 border-gray-200 rounded-lg text-base transition-colors duration-300 focus:outline-none focus:border-primary"
               />
             </div>
 
@@ -110,10 +88,9 @@ const ReviewSection = ({ productId }) => {
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((rating) => (
                   <button
-                    key={rating}
-                    type="button"
+                    key={rating} type="button"
                     className={`text-3xl border-none bg-transparent cursor-pointer transition-all duration-200 p-0 ${
-                      formData.rating >= rating ? 'text-yellow-400 scale-110' : 'text-gray-300 hover:text-yellow-400 hover:scale-110'
+                      formData.rating >= rating ? 'text-yellow-400 scale-110' : 'text-gray-300 hover:text-yellow-400'
                     }`}
                     onClick={() => setFormData({ ...formData, rating })}
                   >
@@ -126,19 +103,15 @@ const ReviewSection = ({ productId }) => {
             <div className="flex flex-col gap-2">
               <label htmlFor="comment" className="font-semibold text-gray-800">Your Review</label>
               <textarea
-                id="comment"
-                name="comment"
-                value={formData.comment}
-                onChange={handleChange}
-                required
-                rows="4"
+                id="comment" name="comment"
+                value={formData.comment} onChange={handleChange} required rows="4"
                 placeholder="Write your review here..."
-                className="p-3 border-2 border-gray-200 rounded-lg text-base font-sans transition-colors duration-300 focus:outline-none focus:border-primary resize-none"
+                className="p-3 border-2 border-gray-200 rounded-lg text-base transition-colors duration-300 focus:outline-none focus:border-primary resize-none"
               />
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="bg-gradient-to-r from-primary to-primary-dark text-white border-none px-8 py-4 rounded-lg text-lg font-bold cursor-pointer transition-all duration-300 self-start hover:-translate-y-0.5 hover:shadow-lg"
             >
               Submit Review
@@ -163,16 +136,12 @@ const ReviewSection = ({ productId }) => {
                       <div className="font-bold text-gray-800 text-lg">{review.userName}</div>
                       <div className="text-gray-600 text-sm">
                         {new Date(review.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                          year: 'numeric', month: 'long', day: 'numeric',
                         })}
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-0.5">
-                    {renderStars(review.rating)}
-                  </div>
+                  <div className="flex gap-0.5">{renderStars(review.rating)}</div>
                 </div>
                 <div className="text-gray-700 leading-relaxed text-base">{review.comment}</div>
               </div>
@@ -185,4 +154,3 @@ const ReviewSection = ({ productId }) => {
 };
 
 export default ReviewSection;
-
