@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useCallback } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReviewSection from '../components/ReviewSection';
@@ -6,7 +10,11 @@ import ImageGallery from '../components/ImageGallery';
 import ShareButton from '../components/ShareButton';
 import { calculatePriceBySize, formatPrice } from '../utils/priceCalculator';
 
+<<<<<<< HEAD
 const ProductDetail = ({ addToCart, isLoggedIn }) => {
+=======
+const ProductDetail = () => {
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -15,7 +23,15 @@ const ProductDetail = ({ addToCart, isLoggedIn }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
 
+<<<<<<< HEAD
   const fetchProduct = useCallback(async () => {
+=======
+  useEffect(() => {
+    fetchProduct();
+  }, [id]);
+
+  const fetchProduct = async () => {
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
     try {
       const response = await axios.get(`/api/products/${id}`);
       setProduct(response.data);
@@ -34,11 +50,15 @@ const ProductDetail = ({ addToCart, isLoggedIn }) => {
       console.error('Error fetching product:', error);
       setLoading(false);
     }
+<<<<<<< HEAD
   }, [id]);
 
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct]);
+=======
+  };
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 
   useEffect(() => {
     if (product && selectedSize) {
@@ -143,6 +163,7 @@ const ProductDetail = ({ addToCart, isLoggedIn }) => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 mt-4">
+<<<<<<< HEAD
             <button
               className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white border-none px-8 py-4 rounded-lg text-lg font-bold cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 disabled:opacity-60"
               disabled={!isLoggedIn}
@@ -160,6 +181,10 @@ const ProductDetail = ({ addToCart, isLoggedIn }) => {
               }}
             >
               {isLoggedIn ? 'Add to Cart' : 'Login to Add'}
+=======
+            <button className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white border-none px-8 py-4 rounded-lg text-lg font-bold cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0">
+              Add to Cart
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
             </button>
             <ShareButton product={product} />
           </div>

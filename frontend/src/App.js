@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useEffect, useMemo, useState } from 'react';
+=======
+import React from 'react';
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Homepage from './pages/Homepage';
 import ProductDetail from './pages/ProductDetail';
+<<<<<<< HEAD
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
@@ -127,6 +132,17 @@ function App() {
               />
             }
           />
+=======
+
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
         </Routes>
       </div>
     </Router>

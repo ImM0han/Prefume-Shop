@@ -3,6 +3,7 @@ require('dotenv').config();
 const Product = require('./models/Product');
 const Review = require('./models/Review');
 
+<<<<<<< HEAD
 
 
 
@@ -47,6 +48,9 @@ const sizePatterns = [
 ];
 
 const manualProducts = [
+=======
+const products = [
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   {
     name: "Beardo Whisky Smoke Single Malt",
     description: "A bold and intoxicating fragrance crafted with long-lasting woody notes. This sophisticated Eau de Parfum captures the essence of aged whisky with smoky undertones, combining rich amber, oak wood, and a hint of vanilla with the distinctive warmth of whisky notes. Perfect for evening occasions, it exudes confidence and masculine elegance. The long-lasting fragrance creates an aura of mystery and sophistication.",
@@ -116,6 +120,7 @@ const manualProducts = [
     sizes: ["50ml", "100ml"],
     category: "Women",
     brand: "Nisara"
+<<<<<<< HEAD
   },
   {
     name: "Beardo Oud Spice",
@@ -189,6 +194,11 @@ const products = [
   ...generatedProducts.filter((product) => !manualNames.has(product.name))
 ];
 
+=======
+  }
+];
+
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 const reviews = [
   {
     productId: null,
@@ -516,6 +526,7 @@ async function seedDatabase() {
     const createdProducts = await Product.insertMany(products);
     console.log(`Inserted ${createdProducts.length} products`);
 
+<<<<<<< HEAD
     // Distribute available reviews across all products in round-robin.
     const reviewPromises = reviews.map((review, index) => {
       const product = createdProducts[index % createdProducts.length];
@@ -523,6 +534,22 @@ async function seedDatabase() {
         ...review,
         productId: product._id
       });
+=======
+    // Create reviews for products (distribute all 50 reviews across 5 products - 10 reviews per product)
+    const reviewPromises = [];
+    createdProducts.forEach((product, productIndex) => {
+      // Assign 10 reviews to each product
+      for (let i = 0; i < 10; i++) {
+        const reviewIndex = (productIndex * 10) + i;
+        if (reviewIndex < reviews.length) {
+          const review = {
+            ...reviews[reviewIndex],
+            productId: product._id
+          };
+          reviewPromises.push(Review.create(review));
+        }
+      }
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
     });
 
     await Promise.all(reviewPromises);

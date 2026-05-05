@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.15.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -13,6 +14,18 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6"
+=======
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "react-scripts": "5.0.1",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,3 +52,7 @@
   },
   "proxy": "http://localhost:5000"
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1

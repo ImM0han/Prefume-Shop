@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+<<<<<<< HEAD
 const Navbar = ({ cartCount, currentUser, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+=======
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,13 +34,19 @@ const Navbar = ({ cartCount, currentUser, onLogout }) => {
           >
             Home
           </Link>
+<<<<<<< HEAD
           <Link
             to="/collections"
+=======
+          <Link 
+            to="/" 
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
             className="text-white font-medium hover:text-yellow-300 transition-colors relative py-4 px-4 block md:py-0 md:px-0 after:content-[''] after:absolute after:bottom-[-5px] md:after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-yellow-300 hover:after:w-full after:transition-all after:duration-300" 
             onClick={() => setIsMenuOpen(false)}
           >
             Collections
           </Link>
+<<<<<<< HEAD
           <button
             className="text-white font-medium hover:text-yellow-300 transition-colors text-left py-4 px-4 md:py-0 md:px-0"
             onClick={() => {
@@ -89,6 +100,22 @@ const Navbar = ({ cartCount, currentUser, onLogout }) => {
               </Link>
             </>
           )}
+=======
+          <Link 
+            to="/" 
+            className="text-white font-medium hover:text-yellow-300 transition-colors relative py-4 px-4 block md:py-0 md:px-0 after:content-[''] after:absolute after:bottom-[-5px] md:after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-yellow-300 hover:after:w-full after:transition-all after:duration-300" 
+            onClick={() => setIsMenuOpen(false)}
+          >
+            About
+          </Link>
+          <Link 
+            to="/" 
+            className="text-white font-medium hover:text-yellow-300 transition-colors relative py-4 px-4 block md:py-0 md:px-0 after:content-[''] after:absolute after:bottom-[-5px] md:after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-yellow-300 hover:after:w-full after:transition-all after:duration-300" 
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Contact
+          </Link>
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
         </div>
 
         <div className="md:hidden flex flex-col gap-1.5 cursor-pointer" onClick={toggleMenu}>
@@ -97,6 +124,7 @@ const Navbar = ({ cartCount, currentUser, onLogout }) => {
           <span className={`w-6 h-0.5 bg-white rounded transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
         </div>
       </div>
+<<<<<<< HEAD
 
       {showAboutModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] px-4">
@@ -148,6 +176,8 @@ const Navbar = ({ cartCount, currentUser, onLogout }) => {
           </div>
         </div>
       )}
+=======
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
     </nav>
   );
 };

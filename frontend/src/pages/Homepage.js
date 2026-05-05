@@ -1,13 +1,23 @@
+<<<<<<< HEAD
 import React, { useEffect, useMemo, useState } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
+<<<<<<< HEAD
 const Homepage = ({ addToCart, isLoggedIn }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [loadError, setLoadError] = useState('');
+=======
+const Homepage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,11 +28,17 @@ const Homepage = ({ addToCart, isLoggedIn }) => {
     try {
       const response = await axios.get('/api/products');
       setProducts(response.data);
+<<<<<<< HEAD
       setLoadError('');
     } catch (error) {
       console.error('Error fetching products:', error);
       setLoadError('Unable to load products right now. Please check backend server.');
     } finally {
+=======
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
       setLoading(false);
     }
   };
@@ -31,6 +47,7 @@ const Homepage = ({ addToCart, isLoggedIn }) => {
     navigate(`/product/${productId}`);
   };
 
+<<<<<<< HEAD
   const filteredProducts = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
     if (!normalized) {
@@ -43,6 +60,8 @@ const Homepage = ({ addToCart, isLoggedIn }) => {
     });
   }, [products, searchTerm]);
 
+=======
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   return (
     <div className="min-h-screen">
       {/* Call to Action Banner */}
@@ -75,6 +94,7 @@ const Homepage = ({ addToCart, isLoggedIn }) => {
           <h2 className="text-4xl text-center mb-12 text-gray-800 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-primary after:to-primary-dark after:rounded">
             Featured Collections
           </h2>
+<<<<<<< HEAD
           <div className="mb-8">
             <div className="flex gap-2">
               <input
@@ -110,12 +130,22 @@ const Homepage = ({ addToCart, isLoggedIn }) => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
               {filteredProducts.map((product) => (
+=======
+          {loading ? (
+            <div className="text-center py-12 text-lg text-gray-600">Loading products...</div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+              {products.map((product) => (
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
                 <ProductCard
                   key={product._id}
                   product={product}
                   onClick={() => handleCardClick(product._id)}
+<<<<<<< HEAD
                   onAddToCart={addToCart}
                   isLoggedIn={isLoggedIn}
+=======
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
                 />
               ))}
             </div>

@@ -1,9 +1,15 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import { calculatePriceBySize, formatPrice } from '../utils/priceCalculator';
 
 const ProductCard = ({ product, onClick, onAddToCart, isLoggedIn }) => {
   const navigate = useNavigate();
+=======
+import { calculatePriceBySize, formatPrice } from '../utils/priceCalculator';
+
+const ProductCard = ({ product, onClick }) => {
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   // Get the smallest size for display on card
   const smallestSize = product.sizes.length > 0 
     ? [...product.sizes].sort((a, b) => parseInt(a.replace('ml', '')) - parseInt(b.replace('ml', '')))[0]
@@ -12,8 +18,13 @@ const ProductCard = ({ product, onClick, onAddToCart, isLoggedIn }) => {
   const displayPrice = calculatePriceBySize(product.price, smallestSize, product.sizes);
 
   return (
+<<<<<<< HEAD
     <div
       className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full hover:-translate-y-2.5 hover:shadow-2xl"
+=======
+    <div 
+      className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full hover:-translate-y-2.5 hover:shadow-2xl" 
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
       onClick={onClick}
     >
       <div className="relative w-full pt-[100%] overflow-hidden bg-white">
@@ -44,6 +55,7 @@ const ProductCard = ({ product, onClick, onAddToCart, isLoggedIn }) => {
             {product.category}
           </span>
         </div>
+<<<<<<< HEAD
         <button
           className="mt-4 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 disabled:opacity-60"
           disabled={!isLoggedIn}
@@ -64,6 +76,8 @@ const ProductCard = ({ product, onClick, onAddToCart, isLoggedIn }) => {
         >
           {isLoggedIn ? 'Add to Cart' : 'Login to Add'}
         </button>
+=======
+>>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
       </div>
     </div>
   );
