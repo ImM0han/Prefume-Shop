@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import React, { useEffect, useMemo, useState } from 'react';
-=======
-import React from 'react';
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Homepage from './pages/Homepage';
 import ProductDetail from './pages/ProductDetail';
-<<<<<<< HEAD
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
@@ -36,18 +31,14 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    if (!currentUser?.email) {
-      return;
-    }
+    if (!currentUser?.email) return;
 
     const userCartKey = `perfume_shop_cart_${currentUser.email}`;
     localStorage.setItem(userCartKey, JSON.stringify(cartItems));
   }, [cartItems, currentUser]);
 
   const addToCart = (product) => {
-    if (!currentUser?.email) {
-      return false;
-    }
+    if (!currentUser?.email) return false;
 
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
@@ -64,20 +55,25 @@ function App() {
 
       return [...prevItems, { ...product, quantity: 1 }];
     });
+
     return true;
   };
 
   const updateCartQuantity = (productId, size, quantity) => {
     if (quantity <= 0) {
       setCartItems((prevItems) =>
-        prevItems.filter((item) => !(item.productId === productId && item.size === size))
+        prevItems.filter(
+          (item) => !(item.productId === productId && item.size === size)
+        )
       );
       return;
     }
 
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.productId === productId && item.size === size ? { ...item, quantity } : item
+        item.productId === productId && item.size === size
+          ? { ...item, quantity }
+          : item
       )
     );
   };
@@ -105,22 +101,47 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen">
-        <Navbar cartCount={cartCount} currentUser={currentUser} onLogout={handleLogout} />
+        <Navbar
+          cartCount={cartCount}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+        />
         <Routes>
           <Route
             path="/"
-            element={<Homepage addToCart={addToCart} isLoggedIn={Boolean(currentUser)} />}
+            element={
+              <Homepage
+                addToCart={addToCart}
+                isLoggedIn={Boolean(currentUser)}
+              />
+            }
           />
           <Route
             path="/product/:id"
-            element={<ProductDetail addToCart={addToCart} isLoggedIn={Boolean(currentUser)} />}
+            element={
+              <ProductDetail
+                addToCart={addToCart}
+                isLoggedIn={Boolean(currentUser)}
+              />
+            }
           />
           <Route
             path="/collections"
-            element={<Collections addToCart={addToCart} isLoggedIn={Boolean(currentUser)} />}
+            element={
+              <Collections
+                addToCart={addToCart}
+                isLoggedIn={Boolean(currentUser)}
+              />
+            }
           />
-          <Route path="/signup" element={<Signup onAuthSuccess={handleAuthSuccess} />} />
-          <Route path="/login" element={<Login onAuthSuccess={handleAuthSuccess} />} />
+          <Route
+            path="/signup"
+            element={<Signup onAuthSuccess={handleAuthSuccess} />}
+          />
+          <Route
+            path="/login"
+            element={<Login onAuthSuccess={handleAuthSuccess} />}
+          />
           <Route
             path="/cart"
             element={
@@ -132,17 +153,6 @@ function App() {
               />
             }
           />
-=======
-
-function App() {
-  return (
-    <Router>
-      <div className="min-h-screen">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
         </Routes>
       </div>
     </Router>
@@ -150,4 +160,3 @@ function App() {
 }
 
 export default App;
-

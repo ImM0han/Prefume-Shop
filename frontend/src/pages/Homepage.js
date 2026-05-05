@@ -1,23 +1,14 @@
-<<<<<<< HEAD
 import React, { useEffect, useMemo, useState } from 'react';
-=======
-import React, { useState, useEffect } from 'react';
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
-<<<<<<< HEAD
 const Homepage = ({ addToCart, isLoggedIn }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [loadError, setLoadError] = useState('');
-=======
-const Homepage = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,17 +19,11 @@ const Homepage = () => {
     try {
       const response = await axios.get('/api/products');
       setProducts(response.data);
-<<<<<<< HEAD
       setLoadError('');
     } catch (error) {
       console.error('Error fetching products:', error);
       setLoadError('Unable to load products right now. Please check backend server.');
     } finally {
-=======
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching products:', error);
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
       setLoading(false);
     }
   };
@@ -47,12 +32,9 @@ const Homepage = () => {
     navigate(`/product/${productId}`);
   };
 
-<<<<<<< HEAD
   const filteredProducts = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
-    if (!normalized) {
-      return products;
-    }
+    if (!normalized) return products;
 
     return products.filter((product) => {
       const searchable = `${product.name} ${product.category} ${product.brand}`.toLowerCase();
@@ -60,92 +42,67 @@ const Homepage = () => {
     });
   }, [products, searchTerm]);
 
-=======
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
   return (
     <div className="min-h-screen">
-      {/* Call to Action Banner */}
-      <section 
-        className="h-[500px] flex items-center justify-center text-center text-white relative overflow-hidden bg-cover bg-center"
-        style={{
-          backgroundImage: `linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('https://rukminim2.flixcart.com/image/832/832/xif0q/perfume/i/d/0/50-0-whisky-smoke-edp-perfume-for-men-strong-long-lasting-eau-de-original-imahckwnzuasfthg.jpeg?q=70&crop=false')`
-        }}
-      >
-        <div className="absolute inset-0 bg-black/20"></div>
+      
+      {/* Banner */}
+      <section className="h-[500px] flex items-center justify-center text-center text-white relative bg-cover bg-center">
         <div className="relative z-10 max-w-4xl px-8">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg animate-fadeInUp">
+          <h1 className="text-5xl font-bold mb-4">
             Discover Your Signature Scent
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-95 animate-fadeInUp-delay-1">
+          <p className="text-xl mb-8">
             Explore our exclusive collection of luxury fragrances
           </p>
-          <button 
-            className="bg-gradient-to-r from-yellow-400 to-yellow-300 text-gray-800 border-none px-12 py-4 text-xl font-bold rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-1 hover:shadow-xl active:translate-y-0 animate-fadeInUp-delay-2"
-            onClick={() => document.querySelector('.products-section')?.scrollIntoView({ behavior: 'smooth' })}
+          <button
+            className="bg-yellow-400 px-8 py-3 rounded-full font-bold"
+            onClick={() =>
+              document.querySelector('.products-section')?.scrollIntoView({ behavior: 'smooth' })
+            }
           >
             Shop Now
           </button>
         </div>
       </section>
 
-      {/* Products Section */}
+      {/* Products */}
       <section className="products-section py-16 px-8 bg-gray-100">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl text-center mb-12 text-gray-800 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-primary after:to-primary-dark after:rounded">
+          <h2 className="text-4xl text-center mb-12 text-gray-800">
             Featured Collections
           </h2>
-<<<<<<< HEAD
+
+          {/* Search */}
           <div className="mb-8">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder="Search by product name, category, or brand..."
-                className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search products..."
+                className="w-full border rounded-xl px-4 py-3"
               />
               {searchTerm && (
-                <button
-                  className="bg-gray-200 text-gray-700 px-4 rounded-xl font-medium"
-                  onClick={() => setSearchTerm('')}
-                >
+                <button onClick={() => setSearchTerm('')}>
                   Clear
                 </button>
               )}
             </div>
-            {!loading && !loadError && (
-              <p className="mt-3 text-sm text-gray-600">
-                Showing {filteredProducts.length} of {products.length} products
-              </p>
-            )}
           </div>
+
           {loading ? (
-            <div className="text-center py-12 text-lg text-gray-600">Loading products...</div>
+            <div className="text-center">Loading...</div>
           ) : loadError ? (
-            <div className="text-center py-12 text-lg text-red-600">{loadError}</div>
-          ) : filteredProducts.length === 0 ? (
-            <div className="text-center py-12 text-lg text-gray-600">
-              No products found for "{searchTerm}".
-            </div>
+            <div className="text-red-600 text-center">{loadError}</div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+            <div className="grid grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-=======
-          {loading ? (
-            <div className="text-center py-12 text-lg text-gray-600">Loading products...</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
-              {products.map((product) => (
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
                 <ProductCard
                   key={product._id}
                   product={product}
                   onClick={() => handleCardClick(product._id)}
-<<<<<<< HEAD
                   onAddToCart={addToCart}
                   isLoggedIn={isLoggedIn}
-=======
->>>>>>> a64a82d16c2e1cd3862e1cdc3dc9c8a1974235d1
                 />
               ))}
             </div>
@@ -157,4 +114,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
